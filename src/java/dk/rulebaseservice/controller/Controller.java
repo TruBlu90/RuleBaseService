@@ -5,7 +5,6 @@
  */
 package dk.rulebaseservice.controller;
 
-import dk.rulebaseservice.dto.LoanRequestDTO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,23 +14,23 @@ import java.util.List;
  */
 public class Controller 
 {
-    private LoanRequestDTO requestDTO;
     private List<String> bankList;
+    private int creditScore;
+    
     public Controller()
     {
-        requestDTO = new LoanRequestDTO();
         bankList = generateBankList();
     }
         
-    public Controller(String ssn, double loanAmount,int loanDuration, int creditScore)
+    public Controller(int creditScore)
     {
-        requestDTO = new LoanRequestDTO(ssn, loanAmount, loanDuration, creditScore );
+        this.creditScore = creditScore;
         bankList = generateBankList();
     }
     
     private List<String> generateBankList()
     {
-        List<String> generatingBankList = new ArrayList<String>();
+        List<String> generatingBankList = new ArrayList<>();
         
         generatingBankList.add("cphbusiness.bankJSON");
         generatingBankList.add("cphbusiness.bankXML");
@@ -43,9 +42,7 @@ public class Controller
     
     public List<String> selectSuitableBanks()
     {
-        List<String> selectedBanks = new ArrayList<String>();
-        
-        int creditScore = requestDTO.getCreditScore();
+        List<String> selectedBanks = new ArrayList<>();
         
         if (creditScore < 580)
         {

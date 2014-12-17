@@ -21,11 +21,14 @@ public class RuleBaseService
 
     /**
      * Web service operation
+     * @param creditScore
+     * @return 
      */
-    @WebMethod(operationName = "chooseAppropriateBanks")
-    public List<String> chooseAppropriateBanks(@WebParam(name = "ssn") String ssn, @WebParam(name = "loanAmount") double loanAmount, @WebParam(name = "loanDuration") int loanDuration, @WebParam(name = "creditScore") int creditScore)
+    @WebMethod(operationName = "getAppropriateBanks")
+    public List<String> getAppropriateBanks(@WebParam(name = "creditScore") int creditScore) 
     {
-        Controller controller = new Controller(ssn, loanAmount, loanDuration, creditScore);
+        Controller controller = new Controller(creditScore);
         return controller.selectSuitableBanks();
     }
+
 }
